@@ -1,0 +1,31 @@
+name: Kriterion Daily FX Signal
+
+on:
+  schedule:
+    # Esegue alle 22:00 UTC ogni giorno dal lunedì al venerdì
+    - cron: '0 22 * * 1-5'
+  workflow_dispatch: # Permette di eseguirlo manualmente dal tab Actions per test
+
+jobs:
+  run-signal:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        pip install pandas numpy requests plotly eodhd python-dotenv streamlit
+        
+    - name: Run Daily Bot
+      env:
+        EODHD_API_KEY: ${{ secrets.EODHD_API_KEY }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: python daily_bot_runner.py
