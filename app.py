@@ -413,8 +413,8 @@ with st.sidebar:
     st.markdown("#### 📚 Risorse")
     st.markdown("""
     - [📖 Documentazione](https://kriterionquant.com)
-    - [💬 Canale Telegram](https://t.me/kriterionquant)
-    - [📧 Supporto](mailto:support@kriterionquant.com)
+    
+    - [📧 Supporto](mailto:info@kriterionquant.com)
     """)
     
     st.markdown("---")
