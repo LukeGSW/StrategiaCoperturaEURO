@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+from datetime import datetime  # <--- CORREZIONE: Import aggiunto qui
 from utils import get_eodhd_data
 from strategy import apply_hedging_logic
 
@@ -75,12 +76,6 @@ try:
         line=dict(color='orange', width=2, dash='dash')
     ))
     
-    # Bande (Opzionali, visualizziamo solo lo stato con lo sfondo)
-    
-    # Evidenziare Zone HEDGED (Bear)
-    # Creiamo aree rettangolari per i periodi BEAR
-    # Logica complessa per Plotly, semplifichiamo colorando lo sfondo o usando una linea 'Stato'
-    
     # Aggiungiamo Marker per i cambi di stato (Action)
     hedge_entries = df[df['Action'] == 'OPEN_HEDGE']
     hedge_exits = df[df['Action'] == 'CLOSE_HEDGE']
@@ -105,6 +100,10 @@ try:
         hovermode="x unified"
     )
     
+    # CORREZIONE WARNING:
+    # Se vuoi eliminare il warning rosso nel log, usa width="stretch" (per le versioni nuove di Streamlit)
+    # Altrimenti use_container_width=True funziona ancora ma genera l'avviso.
+    # Qui usiamo la versione compatibile col warning:
     st.plotly_chart(fig, use_container_width=True)
 
     # --- RIQUADRO LOGICA STRATEGICA ---
@@ -137,4 +136,5 @@ except Exception as e:
 # Sidebar con info tecniche
 st.sidebar.title("Configurazione")
 st.sidebar.info("Dati forniti da **EODHD APIs**")
+# Questa riga ora funzionerà perché abbiamo importato datetime in alto
 st.sidebar.text(f"Ultimo aggiornamento:\n{datetime.now().strftime('%Y-%m-%d %H:%M')}")
