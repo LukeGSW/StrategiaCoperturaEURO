@@ -2,9 +2,10 @@ name: Kriterion Daily FX Signal
 
 on:
   schedule:
-    # Esegue alle 22:00 UTC ogni giorno dal lunedì al venerdì
-    - cron: '0 22 * * 1-5'
-  workflow_dispatch: # Permette di eseguirlo manualmente dal tab Actions per test
+    # Esegue all'1:00 UTC
+    # I giorni passano da 1-5 a 2-6 (Martedì-Sabato)
+    - cron: '0 1 * * 2-6'
+  workflow_dispatch:
 
 jobs:
   run-signal:
